@@ -1,0 +1,66 @@
+<div class="row">
+    <!--Main column-->
+    <div class="col-lg-12 col-md-12">
+
+          <div class="container">
+
+              <!--Section: Cards-->
+
+                <section id="cards" class="text-center">
+                    <!--Grid row-->
+                    <div class="row text-left">
+                        <% @articles.each do |article| %>
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-12 mb-3">
+
+                            <!--Card-->
+                            <div class="card">
+                                <!--Card image-->
+                                <div class="view overlay">
+                                  <a href="/articles/<%= article.slug %>"><%= image_tag article.cover_image.url, class: "card-img-top" %></a>
+                                </div>
+                                <!--/.Card image-->
+                                <!--Button-->
+                                <a href="/articles/<%= article.slug %>" class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-effect waves-light">
+                                    <i class="material-icons">chevron_right</i>
+                                </a>
+                                <!--Card content-->
+                                <div class="card-body card-down">
+                                    <!--Title-->
+                                    <a href="/articles/<%= article.slug %>"><h4 class="card-title"><%= article.headline_short %></h4></a>
+                                    <hr>
+                                    <!--Text-->
+                                    <p class="font-small grey-dark-text mb-0"><%= article.article_leader %></p>
+                                </div>
+                                <!--/.Card content-->
+                            </div>
+                            <!--/.Card-->
+
+                        </div>
+                        <!--Grid column-->
+                        <% end %>
+
+                    </div>
+                    <!--Grid row-->
+
+                  </section>
+          </div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+  var sum = 0;
+  var arr = [];
+  var count = 0;
+  var max_val =0;
+  $('.card-body').each(function(){
+      sum = $(this).height();
+      console.log(sum);
+      arr.push(sum);
+    });
+  $('.card-body').each(function(){
+    max_val = Math.max.apply(Math,arr);
+    $(this).css("height",(max_val + 30));
+    });
+  });
+</script>

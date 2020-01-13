@@ -1,0 +1,52 @@
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="/assets/sidebar-1.jpg">
+  <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+    Tip 2: you can also add an image using data-image tag
+-->
+  <div class="logo">
+    <a href="/admin/dashboard/articles" class="simple-text logo-normal">
+      Progress KA
+    </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <!-- <li class="nav-item <%= controller_name == 'base' ? 'active' : '' %>">
+        <a class="nav-link" href="/admin/dashboard">
+          <i class="material-icons">dashboard</i>
+          <p>Dashboard</p>
+        </a>
+      </li> -->
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="/admin/dashboard">
+          <i class="material-icons">person</i>
+          <p>User Profile</p>
+        </a>
+      </li> -->
+      <li class="nav-item <%= controller_name == 'articles' ? 'active' : '' %>">
+        <a class="nav-link" href="/admin/dashboard/articles">
+          <i class="material-icons">content_paste</i>
+          <p>Articles</p>
+        </a>
+      </li>
+      <li class="nav-item <%= controller_name == 'categories' ? 'active' : '' %>">
+        <a class="nav-link" href="/admin/dashboard/categories">
+          <i class="material-icons">library_books</i>
+          <p>Categories</p>
+        </a>
+      </li>
+      <li class="nav-item <%= controller_name == 'cities' ? 'active' : '' %>">
+        <a class="nav-link" href="/admin/dashboard/cities">
+          <i class="material-icons">location_city</i>
+          <p>Cities</p>
+        </a>
+      </li>
+      <li class="nav-item <%= controller_name == 'users' ? 'active' : '' %>">
+        <a class="nav-link" href="/admin/dashboard/users">
+          <i class="material-icons">bubble_chart</i>
+          <p>Users</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

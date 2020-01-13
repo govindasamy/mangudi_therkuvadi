@@ -1,0 +1,36 @@
+<div class="page-header header-filter" style="background-image: url('/assets/bg7.jpg'); background-size: cover; background-position: top center;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div class="card card-login">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="card-header card-header-primary text-center">
+              <h4 class="card-title">Login</h4>
+            </div>
+            <div class="card-body">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">mail</i>
+                  </span>
+                </div>
+                <%= f.text_field :email, placeholder:"Email", autofocus: true, required: true, class:"form-control" %>
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">lock_outline</i>
+                  </span>
+                </div>
+                <%= f.password_field :password, placeholder:"Password", class:"form-control", required: true%>
+              </div>
+            </div>
+            <div class="footer text-center">
+              <%= f.submit "Log in", class:"btn btn-primary btn-link btn-wd btn-lg btn-signin"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

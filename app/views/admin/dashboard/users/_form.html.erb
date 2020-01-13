@@ -1,0 +1,54 @@
+<div class="card-body">
+  <%= simple_form_for [:admin, :dashboard, @user] do |f| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.association :roles, as: :select, :input_html => {id: "role_ids", class: "form-control required parsley-validated d-none", multiple: true}, collection: Role.order('name') %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :username, :label => "Name", :label_html => { :class => 'bmd-label-floating'}, autofocus: true, input_html: { class: 'form-control required parsley-validated' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :email, :label_html => { :class => 'bmd-label-floating'}, :input_html => {class: "form-control required parsley-validated" } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :password, :label_html => { :class => 'bmd-label-floating'}, :input_html => {class: "form-control required parsley-validated"} %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :confirm_password, :label_html => { :class => 'bmd-label-floating'}, :input_html => {class: "form-control required parsley-validated"} %>
+        </div>
+      </div>
+    </div>
+    <%= f.button :submit, class: "btn btn-primary pull-right" %>
+    <div class="clearfix"></div>
+    <% end %>
+</div>
+<script>
+  $(document).ready(function(){
+     $('form').parsley();
+     $("#role_ids").multiselect({
+         maxHeight: 200,
+         includeSelectAllOption: true,
+         enableFiltering: true
+     });
+     <% if !@user.email.blank? %>
+      $("#user_email").attr("disabled", "disabled"); 
+     <% end %>
+    });
+</script>

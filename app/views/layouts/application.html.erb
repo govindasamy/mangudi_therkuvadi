@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ProgressKA</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body class="index-page sidebar-collapse">
+    <%= render 'layouts/header' %>
+    <main>
+        <div class="main-wrapper">
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%= render 'layouts/footer' %>
+  </body>
+  <script>
+      $(function(){
+          if (!$('html').hasScrollBar()){
+            $("footer").removeClass('fixed-bottom');
+          }
+      });
+      $(document).ready(function(){
+        $('.dropdown-submenu .dropdown-toggle').on("click", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var x = $(this).position();
+            $(this).next('.dropdown-menu').toggleClass('show');
+            $($(this).next('.dropdown-menu')).css({'top' : x.top, 'left' : '190px'});
+        });
+      });
+  </script>
+</html>

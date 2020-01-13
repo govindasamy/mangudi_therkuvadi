@@ -1,0 +1,50 @@
+<% comments.each do |comment| %>
+<div class="media">
+  <a class="float-left" href="#pablo">
+    <div class="avatar">
+      <%= image_tag 'anonymous.png', class: "media-object" %>
+    </div>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading"><%= User.find(comment.user_id).username %>
+      <small>· <%= time_ago_in_words(comment.created_at, include_seconds: true) %> ago</small>
+    </h4>
+    <p><%= comment.body %></p>
+    <% if !comment.parent.present? || comment.parent.class.name == "Article" || comment.parent.parent.class.name == "Article"%>
+      <div class="media-footer">
+        <a href="javascript:void(0);" class="btn btn-primary btn-link float-right comment-reply" rel="tooltip" title="" data-original-title="Reply to Comment">
+          <i class="material-icons">reply</i> Reply
+        </a>
+        <!-- <a href="#pablo" class="btn btn-danger btn-link float-right">
+          <i class="material-icons">favorite</i> 243
+        </a> -->
+      </div>
+      <% if current_user.present? %>
+        <div class="media media-post media-post-reply hide">
+          <a class="author float-left" href="#pablo">
+            <div class="avatar">
+              <%= image_tag 'anonymous.png', class: "media-object" %>
+            </div>
+          </a>
+          <div class="media-body reply-form">
+            <%= form_for @new_comment do |f| %>
+              <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
+              <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
+              <%= f.hidden_field :comment_id, value: comment.id %>
+              <span class="bmd-form-group">
+                <%= f.text_area :body, class: 'form-control', placeholder: "Reply", required: true, row: 4 %>
+              </span>
+              <div class="media-footer">
+                <%= submit_tag 'Post Reply', class: 'btn btn-primary float-right' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% render 'comments/no_logged_in_user.html' %>
+    <%= render partial: "comments/reply", locals: {comments: comment.children} %>
+  </div>
+</div>
+
+<% end %>

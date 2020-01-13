@@ -1,0 +1,47 @@
+/*
+*= require material_dashboard/material-dashboard
+*= require_self
+*/
+
+.container-fluid{
+  padding: 0!important;
+}
+.form-group.file{
+  margin-top: -16px!important;
+  margin-bottom: 0!important;
+  height: 16px;
+}
+.form-group.ckeditor{
+  margin-top: 35px!important;
+}
+.form-group.ckeditor label{
+  top: -23px!important;
+}
+.form-group input[type=file]{
+  z-index: 1;
+}
+.form-inline{
+  display: block!important;
+}
+.dataTables_length{
+  float: left;
+}
+.dataTables_filter, .dataTables_paginate{
+  float: right;
+}
+.form-group .img-thumb{
+  width: 140px;
+  text-align: center;
+}
+.form-group .input-group .input-group-btn{
+  display: none;
+}
+.form-group .input-group .form-control.multiselect-search{
+  padding: 10px;
+}
+select{
+  padding: 10px!important;
+}
+select option{
+  font-size: 16px!important;
+}

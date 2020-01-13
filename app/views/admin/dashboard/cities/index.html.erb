@@ -1,0 +1,68 @@
+<%= link_to 'New City', new_admin_dashboard_city_path, class: 'btn btn-primary' %>
+<div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">Cities</h4>
+                </div>
+                <div class="card-body">
+                  <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                  </div>
+                  <div class="material-datatables">
+                    <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                      <table class="table table-striped " id="cities_table">
+                        <thead>
+                        <tr class="info">
+                          <th>Name</th>
+                          <th>Created at</th>
+                          <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% @cities.each do |city| %>
+                            <tr class="<%= cycle('even', 'odd') %>">
+                              <td><%= city.name %></td>
+                              <td><%= city.created_at.strftime("%m/%d/%Y") %></td>
+                              <td><%= city.id %></td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+                <!-- end content-->
+              </div>
+              <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+          </div>
+        </div>
+<script>
+    $(document).ready(function() {
+      dataTableObj = $('#cities_table').DataTable({
+          responsive: true,
+          aaSorting: [],
+          serverSide: true,
+          processing: true,
+          deferLoading: <%= @cities.count %>,
+          ajax: {
+              url: "<%= admin_dashboard_cities_path %>",
+              dataSrc: 'data'
+          },
+          columns: [
+              { data: 'Name' },
+              { data: 'Created at' },
+              { data: 'Actions',
+                  render: function ( data, type, row ) {
+                      return  '<a class="btn btn-success btn-link btn-sm" href="/admin/dashboard/cities/' + row.Actions + '/edit"><i class="material-icons">edit</i><div class="ripple-container"></div></a>' +
+                       '<a data-confirm="Are you sure want to delete this manufacturer?" class="btn btn-danger btn-link" id="delete_entity" rel="nofollow" data-method="delete" data-remote="true" href="/admin/dashboard/cities/' + row.Actions + '"><i class="material-icons">close</i><div class="ripple-container"></div></a>';
+                  }
+              }
+          ]
+      });
+    });
+</script>

@@ -1,0 +1,84 @@
+<%= javascript_include_tag Ckeditor.cdn_url, 'data-turbolinks-track': 'reload' %>
+<div class="card-body">
+  <%= simple_form_for [:admin, :dashboard, @article] do |f| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :headline, :label => "Headline", :label_html => { :class => 'bmd-label-floating'}, autofocus: true, input_html: { class: 'form-control required parsley-validated' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :headline_short, :label => "Headline Short", :label_html => { :class => 'bmd-label-floating'}, input_html: { class: 'form-control required parsley-validated' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :article_leader, :label => "Short Heading", :label_html => { :class => 'bmd-label-floating'}, input_html: { class: 'form-control required parsley-validated' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :author_id, :label => "Author", as: :select, input_html: { class: 'form-control required parsley-validated' }, collection: User.order('username').map{|u| [u.username, u.id]} %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.association :categories, as: :select, :input_html => {id: "category_ids", class: "form-control required parsley-validated d-none", multiple: true}, collection: Category.order('name') %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.association :cities, as: :select, :input_html => {id: "city_ids", class: "form-control required parsley-validated d-none", multiple: true}, collection: City.order('name') %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <% if @article.cover_image.present? %>
+           <div class="img-thumb"><%= image_tag @article.cover_image.url(:small) %></div>
+          <% end %>
+          <span class="btn btn-round btn-primary btn-file">
+            <span class="fileinput-new">Cover image</span>
+            <%= f.input :cover_image, label: false, as: :file, input_html: { class: 'form-control form-control-file required parsley-validated' } %>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :article_body, :label => "Article Body", as: :ckeditor, input_html: { ckeditor: { height: 400 }, class: 'form-control' } %>
+        </div>
+      </div>
+    </div>
+    <%= f.button :submit, class: "btn btn-primary pull-right" %>
+    <div class="clearfix"></div>
+    <% end %>
+</div>
+<script>
+  $(document).ready(function(){
+     $('form').parsley();
+      $("#category_ids").multiselect({
+          maxHeight: 200,
+          includeSelectAllOption: true,
+          enableFiltering: true
+      });
+      $("#city_ids").multiselect({
+          maxHeight: 200,
+          includeSelectAllOption: true,
+          enableFiltering: true
+      });
+    });
+</script>

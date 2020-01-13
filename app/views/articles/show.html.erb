@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+
+  <div class="container">
+
+    <!--Section: Cards-->
+    <section id="article">
+          <!-- Card -->
+          <div class="card card-cascade reverse">
+
+            <!-- Card content -->
+            <div class="card-body">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">Home</a>
+                </li>
+                  <li class="breadcrumb-item">
+                      <a href="/categories/<%= @article.categories.first.slug %>"><%= @article.categories.first.name %></a>
+                  </li>
+                  <li class="breadcrumb-item active">
+                      <%= @article.slug %>
+                  </li>
+              </ol>
+
+              <!-- Title -->
+              <h2 class="card-title"><strong><%= @article.headline %></strong></h4>
+
+              <!-- Subtitle -->
+              <h5 class="indigo-text" style="margin-bottom: 0;"><%= @article.article_leader %></h5>
+              <div class="user-block">by <b><%= User.find(@article.author_id).username %></b> - <%= @article.created_at.strftime('%b %d, %Y') %></div>
+
+              <!-- Cover Image -->
+              <div class="cover-img">
+                <%= image_tag @article.cover_image.url %>
+              </div>
+
+              <!-- Text -->
+              <div class="card-text">
+                <%= raw @article.article_body %>
+              </div>
+
+            </div>
+          </div>
+          <!-- Card -->
+        </section>
+        <section id="comments">
+          <%= render partial: "comments/template", locals: {commentable: @article, new_comment: @new_comment} %>
+        </section>>
+      </div>
+      <!--Grid column-->
+    </div>
+
+</div>
+<%= render 'shared/login_modal' %>
+<script>
+  $(document).ready(function(){
+    $('.comment-reply').click(function() {
+      <% if current_user.present? %>
+        $reply_element = $(this).closest('.media').find('.media-post-reply');
+        if($reply_element.hasClass('hide')){
+          $reply_element.removeClass('hide').addClass('show');
+        }else{
+          $reply_element.removeClass('show').addClass('hide');
+        }
+      <% else %>
+        $('#loginModal').modal('show');
+      <% end %>
+    });
+    $('#add-comment').on('click',function(){
+      $('#loginModal').modal('show');
+    });
+  });
+</script>

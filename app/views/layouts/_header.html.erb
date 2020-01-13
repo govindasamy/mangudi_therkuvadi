@@ -1,0 +1,79 @@
+  <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="/">
+          Progress KA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              Home
+            </a>
+          </li>
+          <% Category.parent_ctegories.each_with_index do |category, index| %>
+            <% parent_url = category.articles.present? ? "/categories/#{category.slug}" : '#' %>
+            <li class="<%= category.children.present? ? 'dropdown' : ''%> nav-item">
+              <a href="<%= parent_url %>" class="<%= category.children.present? ? 'dropdown-toggle' : ''%> nav-link" <% if category.children.present? %>data-toggle="dropdown"<% end %>>
+                <%= category.name %>
+              </a>
+              <% if category.children.present? %>
+                <div class="dropdown-menu dropdown-submenu">
+                  <% category.children.each do |child| %>
+                  <% url = child.articles.present? ? "/categories/#{child.slug}" : '#' %>
+                    <a href="<%= url %>" class="dropdown-item <%= child.children.present? ? 'dropdown-toggle' : ''%>" <% if child.children.present? %>data-toggle="dropdown"<% end %>>
+                      <%= child.name %>
+                    </a>
+                    <% if child.children.present? %>
+                      <div class="dropdown-menu dropdown-submenu-2">
+                        <% child.children.each do |child_next| %>
+                        <% next_url = child_next.articles.present? ? "/categories/#{child_next.slug}" : '#' %>
+                        <a href="<%= next_url %>" class="dropdown-item">
+                          <%= child_next.name %>
+                        </a>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+          <!-- <li class="nav-item">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" data-original-title="Follow us on Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank" data-original-title="Like us on Facebook">
+              <i class="fa fa-facebook-square"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank" data-original-title="Follow us on Instagram">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </li> -->
+          <% if current_user.present? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">person</i>
+                <p class="d-lg-none d-md-block">
+                  Account
+                </p>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                <a class="dropdown-item" href="/sign_out">Log out</a>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>

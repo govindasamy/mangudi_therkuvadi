@@ -1,0 +1,18 @@
+<div class="card-body">
+  <%= simple_form_for [:admin, :dashboard, @city] do |f| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :name, :label => "Name", :label_html => { :class => 'bmd-label-floating'}, autofocus: true, input_html: { class: 'form-control required parsley-validated' } %>
+        </div>
+      </div>
+    </div>
+    <%= f.button :submit, class: "btn btn-primary pull-right" %>
+    <div class="clearfix"></div>
+    <% end %>
+</div>
+<script>
+  $(document).ready(function(){
+     $('form').parsley();
+    });
+</script>

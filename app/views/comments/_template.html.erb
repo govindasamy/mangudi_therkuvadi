@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-8 ml-auto mr-auto">
+    <div class="media-area">
+      <h3 class="title text-center">
+        <%= commentable.comment_threads.count == 0 ? "no" : commentable.comment_threads.count %> comments
+      </h4>
+
+      <div class="comments-container">
+        <%= render partial: "comments/reply", locals: {comments: commentable.root_comments} %>
+      </div>
+    </div>
+    <%= render partial: "comments/form", locals: {new_comment: new_comment} %>
+  </div>
+</div>

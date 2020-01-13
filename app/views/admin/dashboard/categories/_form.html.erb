@@ -1,0 +1,39 @@
+<div class="card-body">
+  <%= simple_form_for [:admin, :dashboard, @category] do |f| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <%= f.input :name, :label => "Name", :label_html => { :class => 'bmd-label-floating'}, autofocus: true, input_html: { class: 'form-control required parsley-validated' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group bmd-form-group">
+          <div class="form-group select optional category_parent_id form-group-valid">
+            <label class="form-control-label select optional bmd-label-static" for="category_parent_id">Parent category</label>
+            <select class="form-control is-valid select optional form-control" name="category[parent_id]" id="category_parent_id">
+              <option value="Select Parent Category"></option>
+              <% Category.parent_ctegories.order('name').each do |category| %>
+                <option <% if @category.parent_id.present? && @category.parent_id == category.id %>selected="selected"<% end %> value="<%= category.id %>"> <%= category.name %></option>
+                <% category.children.each do |child| %>
+                  <option <% if @category.parent_id.present? && @category.parent_id == child.id %>selected="selected"<% end %> value="<%= child.id %>">&nbsp;&nbsp;&nbsp;&nbsp; <%= child.name %></option>
+                  <% child.children.each do |next_child| %>
+                    <option <% if @category.parent_id.present? && @category.parent_id == next_child.id %>selected="selected"<% end %> value="<%= next_child.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= next_child.name %></option>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.button :submit, class: "btn btn-primary pull-right" %>
+    <div class="clearfix"></div>
+    <% end %>
+</div>
+<script>
+  $(document).ready(function(){
+     $('form').parsley();
+    });
+</script>

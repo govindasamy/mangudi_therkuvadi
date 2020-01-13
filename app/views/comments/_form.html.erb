@@ -1,0 +1,29 @@
+<% if current_user.present? %>
+  <h3 class="text-center">Post your comment
+  </h3>
+  <div class="media media-post">
+    <a class="author float-left" href="#pablo">
+      <div class="avatar">
+        <%= image_tag 'anonymous.png', class: "media-object" %>
+      </div>
+    </a>
+    <div class="media-body">
+      <%= form_for @new_comment do |f| %>
+        <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
+        <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
+        <span class="bmd-form-group">
+          <%= f.text_area :body, class: 'form-control', placeholder: "Post comment", required: true, row: 6 %>
+        </span>
+        <div class="media-footer">
+          <%= submit_tag "Post comment", class: 'btn btn-primary btn-wd float-right' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+<div class="media media-post">
+  <div class="media-body text-center">
+    <a href="javascript:void(0);" class="btn btn-primary btn-wd" id="add-comment">Sign in to comment</a>
+  </div>
+</div>
+<% end %>
